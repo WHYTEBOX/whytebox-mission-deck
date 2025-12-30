@@ -1,59 +1,26 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* THE GOVERNOR'S THEME (v4 Spec)
-   In v4, we define variables directly in the @theme block.
-*/
-@theme {
-  /* The "Deep Stealth" Palette */
-  --color-slate-950: #020617;
-  --color-slate-900: #0f172a;
-  --color-slate-800: #1e293b;
-
-  --color-brand-primary: #FF0044; /* #F04 */
-  --color-brand-accent: #3b82f6;
-  --color-brand-success: #10b981;
-
-  /* Fonts linked to Next.js variables */
-  --font-mono: var(--font-jetbrains-mono);
-  --font-sans: var(--font-inter);
-
-  /* Animation Logic */
-  --animate-pulse-fast: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  --animate-blink: blink 1s step-end infinite;
-
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
-}
-
-/* Base Styles 
-   We apply the variables to the root body.
-*/
+/* MISSION DECK THEME VARIABLES */
 :root {
-  --background: var(--color-slate-950);
-  --foreground: #f8fafc;
+  --background: #020617; /* Slate-950 */
+  --foreground: #ededed; /* Slate-100 */
 }
 
 body {
-  background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-mono);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Scrollbar Stealth Mode */
-::-webkit-scrollbar {
-  width: 8px;
+/* Custom Utilities for the Terminal Cursor */
+.typing-effect {
+  border-right: 2px solid #10b981; /* Emerald-500 */
+  animation: blink 1s step-end infinite;
 }
-::-webkit-scrollbar-track {
-  background: var(--color-slate-950);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--color-slate-800);
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+
+@keyframes blink {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: #10b981; }
 }

@@ -1,11 +1,16 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, ChevronRight } from 'lucide-react';
+// IMPORT FIX: No curly braces for default exports
+import ChatInterface from './ChatInterface';
 
 export default function TerminalIntro() {
   const [step, setStep] = useState(0);
+  
+  // STATE: This toggle controls the visibility of the Chat Window
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   // Sequence Logic
   useEffect(() => {
@@ -20,6 +25,11 @@ export default function TerminalIntro() {
   return (
     <div className="w-full max-w-2xl mx-auto p-6 font-mono text-sm md:text-base">
       
+      {/* THE UPLINK: This renders the Chat Interface when state is true */}
+      <AnimatePresence>
+        {isChatOpen && <ChatInterface onClose={() => setIsChatOpen(false)} />}
+      </AnimatePresence>
+
       {/* Line 1: Initialization */}
       <div className="flex items-center text-emerald-500 mb-2">
         <span className="mr-2">{'>'}</span>
@@ -69,9 +79,13 @@ export default function TerminalIntro() {
                 Most organisations suffer from "Shadow AI" and "Creative Displacement". 
                 The Mission Deck is now open for governed auditing.
               </p>
-              A
+              
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="flex items-center justify-center gap-2 bg-brand-primary hover:bg-red-600 text-white px-6 py-3 rounded-md font-bold transition-all group">
+                {/* THE TRIGGER: Now wired to the State Variable */}
+                <button 
+                  onClick={() => setIsChatOpen(true)}
+                  className="flex items-center justify-center gap-2 bg-brand-primary hover:bg-red-600 text-white px-6 py-3 rounded-md font-bold transition-all group"
+                >
                   ACTIVATE MISSION DECK
                   <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
